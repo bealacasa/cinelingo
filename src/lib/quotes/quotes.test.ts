@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { dayInTimeZone, pickDailyId } from "./daily";
 import { segmentText } from "./highlight";
-import { sourceLabel } from "./labels";
+import { franchiseOf, slugify, sourceLabel } from "./labels";
 
 describe("segmentText", () => {
   const text = "By all means, move at a glacial pace.";
@@ -63,5 +63,21 @@ describe("sourceLabel", () => {
     expect(sourceLabel({ work, season: 1, episode: 8 })).toBe("The Wire (2002) · T1 E8");
     expect(sourceLabel({ work, season: 3, episode: null })).toBe("The Wire (2002) · Temporada 3");
     expect(sourceLabel({ work, season: null, episode: null })).toBe("The Wire (2002)");
+  });
+});
+
+describe("franchiseOf / slugify", () => {
+  it.each([
+    ["Harry Potter and the Chamber of Secrets", "Harry Potter"],
+    ["The Godfather Part II", "The Godfather"],
+    ["The Lord of the Rings: The Fellowship of the Ring", "The Lord of the Rings"],
+    ["Breaking Bad", "Breaking Bad"],
+    ["Ferris Bueller's Day Off", "Ferris Bueller's Day Off"],
+  ])("%s → %s", (title, expected) => expect(franchiseOf(title)).toBe(expected));
+
+  it("genera slugs aptos para URL", () => {
+    expect(slugify("Harry Potter")).toBe("harry-potter");
+    expect(slugify("Ferris Bueller's Day Off")).toBe("ferris-buellers-day-off");
+    expect(slugify("Amélie")).toBe("amelie");
   });
 });

@@ -73,3 +73,22 @@ export function sourceLabel(q: Pick<QuoteView, "work" | "season" | "episode">): 
   if (q.season) parts.push(q.episode ? `T${q.season} E${q.episode}` : `Temporada ${q.season}`);
   return parts.join(" · ");
 }
+
+/**
+ * Saga u obra a la que pertenece un título, para agrupar en los filtros:
+ * "Harry Potter and the Chamber of Secrets" → "Harry Potter", "The Godfather Part II" → "The Godfather".
+ */
+export function franchiseOf(title: string): string {
+  return title.split(/:| and the | Part /)[0]?.trim() || title;
+}
+
+/** Slug estable para URLs: "Harry Potter" → "harry-potter". */
+export function slugify(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}

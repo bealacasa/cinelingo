@@ -99,9 +99,37 @@ test.describe("explorar", () => {
     expect(filtered).toBeLessThan(all);
   });
 
-  test("un tema inválido o malicioso muestra todas las citas", async ({ page }) => {
-    await page.goto("/explorar?tema=%3Cscript%3Ealert(1)%3C/script%3E");
-    await expect(page.getByRole("link", { name: "Todas" })).toHaveAttribute("aria-current", "page");
+  test("un filtro inválido o malicioso se ignora", async ({ page }) => {
+    await page.goto("/explorar?tema=%3Cscript%3Ealert(1)%3C/script%3E&obra=..%2F..%2Fetc");
+    const temas = page.getByRole("navigation", { name: "Temas" });
+    const obras = page.getByRole("navigation", { name: "Series y películas" });
+    await expect(temas.getByRole("link", { name: "Todos" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+    await expect(obras.getByRole("link", { name: "Todas" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+    expect(await page.locator('main a[href^="/cita/"]').count()).toBeGreaterThanOrEqual(30);
+  });
+
+  test("filtra por saga y se combina con el tema", async ({ page }) => {
+    await page.goto("/explorar");
+    const obras = page.getByRole("navigation", { name: "Series y películas" });
+    await obras.getByRole("link", { name: /^Harry Potter/ }).click();
+    await expect(page).toHaveURL(/obra=harry-potter/);
+    const tiles = page.locator('main a[href^="/cita/"]');
+    await expect(tiles).toHaveCount(4);
+    for (const tile of await tiles.all()) await expect(tile).toContainText("Harry Potter");
+
+    await page
+      .getByRole("navigation", { name: "Temas" })
+      .getByRole("link", { name: /^Humor\s*\d+$/ })
+      .click();
+    await expect(page).toHaveURL(/tema=humor/);
+    await expect(page).toHaveURL(/obra=harry-potter/);
+    await expect(tiles).toHaveCount(1);
   });
 
   for (const path of ["/", "/explorar"]) {
@@ -163,7 +191,7 @@ test.describe("accesibilidad (WCAG 2.2 AA)", () => {
       expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
     }
     await page.goto("/explorar");
-    for (const chip of await page.locator("nav[aria-label='Temas'] a").all()) {
+    for (const chip of await page.locator("main nav a").all()) {
       const box = await chip.boundingBox();
       expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
     }
