@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* Paleta con contraste WCAG AA verificado en claro y oscuro. Modo oscuro automático. */
+:root {
+  color-scheme: light dark;
+  --bg: #f6f3ef;
+  --surface: #ffffff;
+  --surface-2: #f1ede8;
+  --text: #18181b;
+  --muted: #57534e;
+  --border: rgb(28 25 23 / 0.09);
+  --accent: #b23f0b;
+  --accent-contrast: #ffffff;
+  --accent-soft: #fbe5d6;
+  --mark: #fde3cf;
+  --focus: #1d4ed8;
+  --glow: rgb(244 162 97 / 0.35);
+
+  /* "Pantalla de cine": siempre oscura, en ambos temas. */
+  --screen: #120e0c;
+  --screen-text: #faf7f2;
+  --screen-muted: #c9c1b6;
+  --screen-accent: #f6ad6a;
+  --screen-mark: rgb(246 173 106 / 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d0c0b;
+    --surface: #181614;
+    --surface-2: #211e1b;
+    --text: #f5f3f0;
+    --muted: #b3aca4;
+    --border: rgb(255 255 255 / 0.08);
+    --accent: #f6ad6a;
+    --accent-contrast: #1a1410;
+    --accent-soft: #3a2416;
+    --mark: #4a2a14;
+    --focus: #93c5fd;
+    --glow: rgb(246 173 106 / 0.18);
+    --screen: #1b1512;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-accent-soft: var(--accent-soft);
+  --color-mark: var(--mark);
+  --color-screen: var(--screen);
+  --color-screen-text: var(--screen-text);
+  --color-screen-muted: var(--screen-muted);
+  --color-screen-accent: var(--screen-accent);
+  --color-screen-mark: var(--screen-mark);
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: ui-serif, "New York", Georgia, "Times New Roman", serif;
+  --animate-rise: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: radial-gradient(60rem 30rem at 50% -10rem, var(--glow), transparent 70%), var(--bg);
+  background-repeat: no-repeat;
+  color: var(--text);
+  font-family: var(--font-sans);
+  /* Safe areas (notch, Dynamic Island, barra de inicio) con viewport-fit=cover. */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Tarjeta "pantalla de cine": degradado cálido + viñeta, sin imágenes. */
+.cinema-screen {
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgb(246 173 106 / 0.22), transparent 60%),
+    radial-gradient(80% 60% at 100% 100%, rgb(178 63 11 / 0.25), transparent 70%),
+    linear-gradient(180deg, #1d1612, var(--screen));
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.06) inset,
+    0 30px 60px -30px rgb(18 14 12 / 0.55);
+}
+
+/* Evita el zoom automático de iOS al enfocar campos: mínimo 16px. */
+input,
+select,
+textarea {
+  font-size: max(16px, 1rem);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* <details> sin el triángulo nativo (usamos nuestro propio icono). */
+summary {
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

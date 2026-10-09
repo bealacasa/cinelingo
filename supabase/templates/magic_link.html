@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+  <body
+    style="
+      font-family: -apple-system, system-ui, sans-serif;
+      color: #18181b;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px;
+    "
+  >
+    <h1 style="font-size: 20px">Entra en CineLingo</h1>
+    <p>Tu código de acceso (válido 15 minutos):</p>
+    <p style="font-size: 32px; font-weight: 700; letter-spacing: 6px">{{ .Token }}</p>
+    <p>Si usas CineLingo instalada en la pantalla de inicio, escribe el código en la app.</p>
+    <p>
+      O abre este enlace en el navegador:
+      <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&amp;type=email"
+        >Entrar en CineLingo</a
+      >
+    </p>
+    <p style="color: #52525b; font-size: 13px">
+      Si no has pedido este acceso, ignora este mensaje. Nadie puede entrar sin el código o el
+      enlace.
+    </p>
+  </body>
+</html>
