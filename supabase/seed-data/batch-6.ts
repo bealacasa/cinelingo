@@ -1,0 +1,188 @@
+import type { SeedQuote } from "../../src/lib/quotes/schema";
+
+// Perdidos y Harry Potter. Pendientes de verificación (reviewed_at = null).
+export const batch6: SeedQuote[] = [
+  {
+    slug: "what-i-cant-do",
+    text: "Don't tell me what I can't do!",
+    work: { title: "Lost", type: "series", year: 2004 },
+    character: "John Locke",
+    season: 1,
+    episode: 4,
+    sceneContextEs:
+      "Un hombre al que nadie cree capaz de sobrevivir en la isla se rebela contra quienes le ponen límites.",
+    translationEs: "¡No me digas lo que no puedo hacer!",
+    culturalNoteEs: "Frase recurrente del personaje; resume su obsesión por demostrar que vale.",
+    variety: "us",
+    tags: ["motivacion"],
+    expressions: [
+      {
+        surface: "what I can't do",
+        phrase: "what + clause (nominal relative)",
+        type: "grammar",
+        register: "neutral",
+        meaningEn: "A 'what' clause used as a noun: 'the things that…'.",
+        meaningEs: "'Lo que…': oración con 'what' que funciona como sustantivo.",
+        noteEs: "Error típico: 'Tell me that I can't do' es incorrecto; aquí hace falta 'what'.",
+      },
+    ],
+  },
+  {
+    slug: "live-together-die-alone",
+    text: "If we can't live together, we're gonna die alone.",
+    work: { title: "Lost", type: "series", year: 2004 },
+    character: "Jack Shephard",
+    season: 1,
+    episode: 5,
+    sceneContextEs:
+      "Tras el accidente, el médico del grupo pide a los supervivientes que dejen de pelear y se organicen.",
+    translationEs: "Si no somos capaces de vivir juntos, moriremos solos.",
+    culturalNoteEs: "'Live together, die alone' se convirtió en el lema de la serie.",
+    variety: "us",
+    tags: ["retorica", "estrategia"],
+    expressions: [
+      {
+        surface: "If we can't live together, we're gonna die alone",
+        phrase: "first conditional",
+        type: "grammar",
+        register: "neutral",
+        meaningEn: "Real future condition: if + present, will / going to + verb.",
+        meaningEs: "Condicional real: si + presente, futuro.",
+        noteEs: "Nunca 'if we will…' en la condición.",
+      },
+      {
+        surface: "gonna",
+        phrase: "gonna",
+        type: "slang",
+        register: "informal",
+        meaningEn: "Spoken form of 'going to'.",
+        meaningEs: "Forma oral de 'going to' (voy a).",
+        noteEs: "Habitual al hablar; evítalo en textos formales.",
+      },
+    ],
+  },
+  {
+    slug: "dwell-on-dreams",
+    text: "It does not do to dwell on dreams and forget to live.",
+    work: { title: "Harry Potter and the Philosopher's Stone", type: "film", year: 2001 },
+    character: "Albus Dumbledore",
+    sceneContextEs:
+      "El director encuentra a Harry mirando cada noche un espejo que muestra lo que más desea.",
+    translationEs: "No conviene recrearse en los sueños y olvidarse de vivir.",
+    variety: "uk",
+    tags: ["motivacion", "retorica"],
+    expressions: [
+      {
+        surface: "dwell on",
+        phrase: "dwell on",
+        type: "phrasal_verb",
+        register: "formal",
+        meaningEn: "Keep thinking or talking about something, usually unhelpfully.",
+        meaningEs: "Darle vueltas a algo, recrearse en ello.",
+        noteEs: "'Don't dwell on the past' = no le des más vueltas al pasado.",
+      },
+      {
+        surface: "It does not do to",
+        phrase: "it does not do to + verb",
+        type: "grammar",
+        register: "formal",
+        meaningEn: "It is not wise or appropriate to do something.",
+        meaningEs: "No conviene…, no está bien…",
+        noteEs: "Muy británico y algo anticuado: suena sabio y solemne.",
+      },
+    ],
+  },
+  {
+    slug: "our-choices",
+    text: "It is our choices, Harry, that show what we truly are, far more than our abilities.",
+    work: { title: "Harry Potter and the Chamber of Secrets", type: "film", year: 2002 },
+    character: "Albus Dumbledore",
+    sceneContextEs:
+      "Harry teme parecerse a su enemigo, y el director le explica qué nos define de verdad.",
+    translationEs:
+      "Son nuestras decisiones, Harry, las que muestran lo que somos realmente, mucho más que nuestras habilidades.",
+    variety: "uk",
+    tags: ["retorica", "motivacion"],
+    expressions: [
+      {
+        surface: "It is our choices, Harry, that",
+        phrase: "it is … that (cleft sentence)",
+        type: "grammar",
+        register: "formal",
+        meaningEn: "Structure that puts emphasis on one part of the sentence.",
+        meaningEs: "Oración escindida para dar énfasis: 'Son… los que…'.",
+        noteEs: "'It was Tom who called', no 'Tom called': así destacas quién lo hizo.",
+      },
+      {
+        surface: "far more than",
+        phrase: "far more than",
+        type: "collocation",
+        register: "neutral",
+        meaningEn: "Much more than.",
+        meaningEs: "Mucho más que.",
+      },
+    ],
+  },
+  {
+    slug: "up-to-no-good",
+    text: "I solemnly swear that I am up to no good.",
+    work: { title: "Harry Potter and the Prisoner of Azkaban", type: "film", year: 2004 },
+    character: "Harry Potter",
+    sceneContextEs: "Harry pronuncia la contraseña que activa un mapa mágico del colegio.",
+    translationEs: "Juro solemnemente que mis intenciones no son buenas.",
+    culturalNoteEs:
+      "Parodia el lenguaje de un juramento formal para decir algo travieso: el contraste es el chiste.",
+    variety: "uk",
+    tags: ["humor"],
+    expressions: [
+      {
+        surface: "up to no good",
+        phrase: "be up to no good",
+        type: "idiom",
+        register: "informal",
+        meaningEn: "Doing or planning something bad or mischievous.",
+        meaningEs: "Tramar algo malo, andar en algo raro.",
+        noteEs: "'What are you up to?' = ¿qué estás tramando? / ¿qué haces?",
+      },
+      {
+        surface: "solemnly swear",
+        phrase: "solemnly swear",
+        type: "collocation",
+        register: "formal",
+        meaningEn: "Promise in a very serious, formal way.",
+        meaningEs: "Jurar solemnemente.",
+      },
+    ],
+  },
+  {
+    slug: "darkest-of-times",
+    text: "Happiness can be found, even in the darkest of times, if one only remembers to turn on the light.",
+    work: { title: "Harry Potter and the Prisoner of Azkaban", type: "film", year: 2004 },
+    character: "Albus Dumbledore",
+    sceneContextEs:
+      "En el banquete de inicio de curso, el director anima a los alumnos ante tiempos difíciles.",
+    translationEs:
+      "La felicidad se puede encontrar incluso en los momentos más oscuros, si uno se acuerda de encender la luz.",
+    variety: "uk",
+    tags: ["motivacion", "retorica"],
+    expressions: [
+      {
+        surface: "the darkest of times",
+        phrase: "the + superlative + of + plural",
+        type: "grammar",
+        register: "formal",
+        meaningEn: "Emphatic superlative: 'even the very worst moments'.",
+        meaningEs: "Superlativo enfático: 'los momentos más oscuros'.",
+        noteEs: "'In the best of times' / 'the most difficult of decisions'.",
+      },
+      {
+        surface: "if one only remembers",
+        phrase: "one (impersonal pronoun)",
+        type: "grammar",
+        register: "formal",
+        meaningEn: "Formal 'one' meaning people in general.",
+        meaningEs: "'Uno' impersonal; en inglés coloquial se usa 'you'.",
+      },
+    ],
+  },
+];

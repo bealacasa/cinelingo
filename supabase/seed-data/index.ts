@@ -4,8 +4,20 @@ import { batch2 } from "./batch-2.ts";
 import { batch3 } from "./batch-3.ts";
 import { batch4 } from "./batch-4.ts";
 import { batch5 } from "./batch-5.ts";
+import { batch6 } from "./batch-6.ts";
+import { batch7 } from "./batch-7.ts";
+import { batch8 } from "./batch-8.ts";
 
-export const seedQuotes = [...batch1, ...batch2, ...batch3, ...batch4, ...batch5];
+export const seedQuotes = [
+  ...batch1,
+  ...batch2,
+  ...batch3,
+  ...batch4,
+  ...batch5,
+  ...batch6,
+  ...batch7,
+  ...batch8,
+];
 
 export const seedTags: Record<string, string> = {
   amor: "Amor y relaciones",
