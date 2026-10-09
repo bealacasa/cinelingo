@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ExploreIcon, TodayIcon } from "@/components/icons";
+import { ExploreIcon, PracticeIcon, TodayIcon } from "@/components/icons";
 import { NAV_ITEMS, isActive } from "./nav-items";
 
-const ICONS = { today: TodayIcon, explore: ExploreIcon };
+const ICONS = { today: TodayIcon, practice: PracticeIcon, explore: ExploreIcon };
 
 /** Barra de pestañas inferior (móvil), estilo iOS, respetando la barra de inicio. */
 export function TabBar() {

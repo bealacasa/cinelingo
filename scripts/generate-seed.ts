@@ -62,6 +62,11 @@ for (const q of quotes) {
       `insert into public.quote_tags (quote_id, tag_id) values (${sql(quoteId)}, ${sql(seedUuid("tag", tag))}) on conflict do nothing;`,
     );
   }
+  if (q.rewrite) {
+    lines.push(
+      `insert into public.exercises (quote_id, type, payload, status) values (${sql(quoteId)}, 'register_rewrite', ${sql(JSON.stringify(q.rewrite))}::jsonb, 'published') on conflict (quote_id, type) do nothing;`,
+    );
+  }
 }
 
 lines.push("commit;", "");

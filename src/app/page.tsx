@@ -1,6 +1,7 @@
 import { DemoBanner } from "@/components/DemoBanner";
 import { MoreQuotes } from "@/components/quote/MoreQuotes";
 import { QuoteBreakdown } from "@/components/quote/QuoteBreakdown";
+import { PracticeCta } from "@/components/practice/PracticeCta";
 import { QuoteCard } from "@/components/quote/QuoteCard";
 import { APP_TIME_ZONE } from "@/lib/quotes/daily";
 import { getDailyQuote, getMoreQuotes } from "@/lib/quotes/queries";
@@ -24,6 +25,7 @@ export default async function HomePage() {
       {quote ? (
         <>
           <QuoteCard quote={quote} eyebrow="Cita del día" />
+          <PracticeCta href="/practicar" />
           <QuoteBreakdown quote={quote} />
           <MoreQuotes quotes={await getMoreQuotes(quote.id)} />
         </>

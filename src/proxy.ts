@@ -6,7 +6,7 @@ import { isLocalHttp as isLocalHttpUrl } from "@/lib/security/local-http";
 import { AUTH_COOKIE_OPTIONS, hasAuthCookie } from "@/lib/supabase/cookies";
 
 /** Rutas que exigen sesión (comprobación optimista; cada página vuelve a verificar). */
-const PROTECTED_PREFIXES = ["/ajustes", "/practicar", "/progreso", "/admin"];
+const PROTECTED_PREFIXES = ["/ajustes", "/progreso", "/admin"];
 
 function isProtected(pathname: string) {
   return PROTECTED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));

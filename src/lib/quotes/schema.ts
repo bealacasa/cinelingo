@@ -25,6 +25,14 @@ export const seedExpressionSchema = z.object({
   noteEs: z.string().max(1000).optional(),
 });
 
+/** Ejercicio de reformulación (registro) con respuesta modelo. Se guarda en exercises.payload. */
+export const rewritePayloadSchema = z.object({
+  direction: z.enum(["to_formal", "to_informal"]),
+  modelAnswer: z.string().min(1).max(400),
+  tipsEs: z.array(z.string().min(1).max(300)).min(1).max(5),
+});
+export type RewritePayload = z.infer<typeof rewritePayloadSchema>;
+
 export const seedQuoteSchema = z
   .object({
     slug: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
@@ -44,6 +52,7 @@ export const seedQuoteSchema = z
     variety: englishVariety,
     tags: z.array(z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/)).max(6),
     expressions: z.array(seedExpressionSchema).min(1).max(5),
+    rewrite: rewritePayloadSchema.optional(),
   })
   .refine((q) => q.episode === undefined || q.season !== undefined, {
     message: "episode requiere season",
@@ -79,4 +88,5 @@ export type QuoteView = {
     start: number;
     end: number;
   }[];
+  rewrite: RewritePayload | null;
 };

@@ -6,6 +6,7 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 type CefrLevel = "B2" | "C1" | "C2";
 type ContentStatus = "draft" | "review" | "published";
 type EnglishVariety = "us" | "uk" | "au" | "ie" | "ca" | "other";
+type ExerciseType = "gap_fill" | "meaning_mcq" | "register_rewrite" | "who_said_it";
 type ExpressionType =
   | "phrasal_verb"
   | "idiom"
@@ -176,6 +177,36 @@ export type Database = {
           },
         ];
       };
+      exercises: {
+        Row: {
+          id: string;
+          quote_id: string;
+          type: ExerciseType;
+          payload: Json;
+          status: ContentStatus;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          quote_id: string;
+          type: ExerciseType;
+          payload: Json;
+          status?: ContentStatus;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["exercises"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "exercises_quote_id_fkey";
+            columns: ["quote_id"];
+            isOneToOne: false;
+            referencedRelation: "quotes";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       daily_quotes: {
         Row: { day: string; quote_id: string };
         Insert: { day: string; quote_id: string };
@@ -203,6 +234,7 @@ export type Database = {
       cefr_level: CefrLevel;
       content_status: ContentStatus;
       english_variety: EnglishVariety;
+      exercise_type: ExerciseType;
       expression_type: ExpressionType;
       register: Register;
       user_role: UserRole;

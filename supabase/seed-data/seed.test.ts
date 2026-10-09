@@ -42,3 +42,12 @@ describe("seed de citas", () => {
     expect(id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
   });
 });
+
+describe("reformulaciones del seed", () => {
+  it("cada reformulación apunta a una cita existente", async () => {
+    const { rewriteSlugs } = await import("./index.ts");
+    const slugs = new Set(seedQuotes.map((q) => q.slug));
+    for (const slug of rewriteSlugs) expect(slugs.has(slug), slug).toBe(true);
+    expect(rewriteSlugs.length).toBeGreaterThanOrEqual(15);
+  });
+});

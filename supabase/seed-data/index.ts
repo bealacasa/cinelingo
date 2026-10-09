@@ -7,7 +7,12 @@ import { batch5 } from "./batch-5.ts";
 import { batch6 } from "./batch-6.ts";
 import { batch7 } from "./batch-7.ts";
 import { batch8 } from "./batch-8.ts";
+import { rewrites1 } from "./rewrites-1.ts";
+import { rewrites2 } from "./rewrites-2.ts";
 
+const rewrites = { ...rewrites1, ...rewrites2 };
+
+/** Todas las citas del seed, con su reformulación si la tienen. */
 export const seedQuotes = [
   ...batch1,
   ...batch2,
@@ -17,7 +22,10 @@ export const seedQuotes = [
   ...batch6,
   ...batch7,
   ...batch8,
-];
+].map((q) => ({ ...q, rewrite: rewrites[q.slug] }));
+
+/** Slugs con reformulación (el test comprueba que todos existen). */
+export const rewriteSlugs = Object.keys(rewrites);
 
 export const seedTags: Record<string, string> = {
   amor: "Amor y relaciones",

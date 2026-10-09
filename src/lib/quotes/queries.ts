@@ -5,7 +5,7 @@ import { logger } from "@/lib/logger";
 import { createPublicClient } from "@/lib/supabase/public";
 import { dayInTimeZone, pickDailyId } from "./daily";
 import { demoQuotes, isDemoMode } from "./demo";
-import type { QuoteView } from "./schema";
+import { rewritePayloadSchema, type QuoteView } from "./schema";
 
 const REVALIDATE_SECONDS = 3600;
 export const QUOTES_CACHE_TAG = "quotes";
@@ -17,7 +17,8 @@ const QUOTE_SELECT = `
   cultural_note_es, level, variety,
   works ( title, type, year ),
   quote_expressions ( start_offset, end_offset, expressions ( id, phrase, type, register, meaning_en, meaning_es, note_es ) ),
-  quote_tags ( tags ( slug, name_es ) )
+  quote_tags ( tags ( slug, name_es ) ),
+  exercises ( type, payload )
 `;
 
 type QuoteRow = {
@@ -46,7 +47,15 @@ type QuoteRow = {
     } | null;
   }[];
   quote_tags: { tags: { slug: string; name_es: string } | null }[];
+  exercises: { type: string; payload: unknown }[];
 };
+
+/** Reformulación publicada de la cita, validada con Zod (si el JSON no es válido, se ignora). */
+function parseRewrite(exercises: QuoteRow["exercises"]): QuoteView["rewrite"] {
+  const raw = exercises.find((e) => e.type === "register_rewrite")?.payload;
+  const parsed = rewritePayloadSchema.safeParse(raw);
+  return parsed.success ? parsed.data : null;
+}
 
 function toView(row: QuoteRow): QuoteView | null {
   if (!row.works) return null;
@@ -62,6 +71,7 @@ function toView(row: QuoteRow): QuoteView | null {
     level: row.level,
     variety: row.variety,
     work: row.works,
+    rewrite: parseRewrite(row.exercises),
     tags: row.quote_tags.flatMap((t) =>
       t.tags ? [{ slug: t.tags.slug, nameEs: t.tags.name_es }] : [],
     ),

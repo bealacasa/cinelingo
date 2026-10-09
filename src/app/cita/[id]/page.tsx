@@ -5,6 +5,7 @@ import { ArrowLeftIcon } from "@/components/icons";
 import { DemoBanner } from "@/components/DemoBanner";
 import { MoreQuotes } from "@/components/quote/MoreQuotes";
 import { QuoteBreakdown } from "@/components/quote/QuoteBreakdown";
+import { PracticeCta } from "@/components/practice/PracticeCta";
 import { QuoteCard } from "@/components/quote/QuoteCard";
 import { getMoreQuotes, getQuote } from "@/lib/quotes/queries";
 
@@ -32,6 +33,7 @@ export default async function QuotePage({ params }: PageProps<"/cita/[id]">) {
         Todas las citas
       </Link>
       <QuoteCard quote={quote} eyebrow={quote.work.type === "series" ? "Serie" : "Película"} />
+      <PracticeCta href={`/practicar/${quote.id}`} />
       <QuoteBreakdown quote={quote} />
       <MoreQuotes quotes={await getMoreQuotes(quote.id)} />
     </>

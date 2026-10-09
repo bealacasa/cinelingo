@@ -30,6 +30,7 @@ export function demoQuotes(): QuoteView[] {
       variety: q.variety,
       work: q.work,
       tags: q.tags.map((slug) => ({ slug, nameEs: seedTags[slug] ?? slug })),
+      rewrite: q.rewrite ?? null,
       expressions: q.expressions.map((e) => {
         const start = q.text.indexOf(e.surface);
         return {

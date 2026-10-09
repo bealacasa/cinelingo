@@ -38,6 +38,7 @@ Antes de `npm run typecheck` en limpio, ejecuta `npx next typegen` (tipos `PageP
   (la CSP los bloquea; usa clases). Excepción: `apple-icon.tsx` (se renderiza a PNG en el servidor).
 - Toda entrada (formularios, params, searchParams, JSON) se valida con Zod. Ids de ruta: `z.uuid()`.
 - Redirecciones tras login: siempre `safeNextPath()`.
+- Ejercicios: el navegador recibe solo la versión pública (`lib/exercises/build.ts`), nunca la respuesta marcada; la corrección va en Server Actions (`app/practicar/actions.ts`) y lo que escribe el usuario no se guarda ni se registra.
 - Rate limiting (`checkRateLimit`) en login, verificación, passkeys, acciones de cuenta, IA y API pública. Falla en cerrado.
 - RLS en todas las tablas, con `grant` explícitos. Admin: `requireAdmin()` en servidor **y** `is_admin()` en RLS.
 - Mensajes de error genéricos al usuario; logs con `logger` (redacta emails, tokens, IP). Nunca loguear cuerpos de petición.

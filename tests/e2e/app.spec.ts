@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { seedUuid } from "../../supabase/seed-data/index.ts";
 
 test.describe("cabeceras de seguridad", () => {
   test("las páginas llevan CSP con nonce, sin unsafe-* y con las cabeceras clave", async ({
@@ -152,6 +153,74 @@ test.describe("explorar", () => {
   });
 });
 
+test.describe("practicar", () => {
+  const offerId = seedUuid("quote", "offer-he-cant-refuse");
+  const correctSpeaker = "Vito Corleone — The Godfather";
+
+  test("sesión completa: quién lo dijo, significado, hueco y reformulación", async ({ page }) => {
+    await page.goto(`/practicar/${offerId}`);
+    const next = () => page.getByRole("button", { name: /Siguiente|Ver resultado/ }).click();
+    const check = () => page.getByRole("button", { name: "Comprobar" }).click();
+
+    await expect(page.getByRole("heading", { name: "¿Quién lo dijo?" })).toBeVisible();
+    await page.getByLabel(correctSpeaker).check();
+    await check();
+    await expect(page.getByRole("status")).toContainText("¡Correcto!");
+    await next();
+
+    await expect(page.getByRole("heading", { name: "¿Qué significa?" })).toBeVisible();
+    await page.getByLabel("Hacer una propuesta imposible de rechazar.").check();
+    await check();
+    await expect(page.getByRole("status")).toContainText("¡Correcto!");
+    await next();
+
+    await expect(page.getByRole("heading", { name: "Completa la cita" })).toBeVisible();
+    await page.getByRole("button", { name: "Pista" }).click();
+    await expect(page.getByText("g____", { exact: true })).toBeVisible();
+    await page.getByLabel("Escribe la expresión que falta").fill("Gonna");
+    await check();
+    await expect(page.getByRole("status")).toContainText("¡Correcto!");
+    await next();
+
+    await expect(page.getByRole("heading", { name: "Cambia el registro" })).toBeVisible();
+    await page.getByLabel(/Reescribe la idea/).fill("I'm gonna offer him a deal!");
+    await page.getByRole("button", { name: /respuesta modelo/ }).click();
+    await expect(page.getByText(/Has usado contracciones/)).toBeVisible();
+    await expect(page.getByText(/I intend to make him a proposal/)).toBeVisible();
+    await next();
+
+    await expect(page.getByRole("heading", { name: "¡Sesión completada!" })).toBeVisible();
+    await expect(page.getByText(/Has acertado\s*3\s*de 3/)).toBeVisible();
+  });
+
+  test("una respuesta incorrecta muestra la correcta", async ({ page }) => {
+    await page.goto(`/practicar/${offerId}`);
+    const options = page.getByRole("radio");
+    const count = await options.count();
+    for (let i = 0; i < count; i++) {
+      const option = options.nth(i);
+      if ((await option.getAttribute("value")) !== correctSpeaker) {
+        await option.check();
+        break;
+      }
+    }
+    await page.getByRole("button", { name: "Comprobar" }).click();
+    await expect(page.getByRole("status")).toContainText("No exactamente");
+    await expect(page.getByRole("status")).toContainText(correctSpeaker);
+  });
+
+  test("la práctica del día está abierta sin cuenta", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: /Practicar esta cita/ }).click();
+    await expect(page).toHaveURL(/\/practicar$/);
+    await expect(page.getByRole("heading", { name: "Practicar", level: 1 })).toBeVisible();
+  });
+
+  test("un id no válido devuelve 404", async ({ request }) => {
+    expect((await request.get("/practicar/no-es-un-uuid")).status()).toBe(404);
+  });
+});
+
 test.describe("rutas protegidas", () => {
   test("ajustes redirige al login conservando la ruta", async ({ page }) => {
     await page.goto("/ajustes");
@@ -171,7 +240,7 @@ test.describe("rutas protegidas", () => {
 });
 
 test.describe("accesibilidad (WCAG 2.2 AA)", () => {
-  for (const path of ["/", "/explorar", "/login", "/privacidad"]) {
+  for (const path of ["/", "/explorar", "/practicar", "/login", "/privacidad"]) {
     test(`sin infracciones de axe en ${path}`, async ({ page }) => {
       await page.goto(path);
       const results = await new AxeBuilder({ page })
