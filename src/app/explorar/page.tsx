@@ -16,7 +16,7 @@ const slugParam = z
   .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/)
   .max(80);
 
-type Filters = { tema: string | null; obra: string | null };
+type Filters = { tema: string | null; obra: string | null; personaje: string | null };
 type Option = { slug: string; label: string; count: number };
 
 /** URL de Explorar con los filtros dados (los nulos se omiten). */
@@ -24,6 +24,7 @@ function exploreHref(filters: Filters): string {
   const params = new URLSearchParams();
   if (filters.tema) params.set("tema", filters.tema);
   if (filters.obra) params.set("obra", filters.obra);
+  if (filters.personaje) params.set("personaje", filters.personaje);
   const query = params.toString();
   return query ? `/explorar?${query}` : "/explorar";
 }
@@ -87,9 +88,11 @@ export default async function ExplorePage({ searchParams }: PageProps<"/explorar
   const params = await searchParams;
   const tema = slugParam.safeParse(params.tema);
   const obra = slugParam.safeParse(params.obra);
+  const personaje = slugParam.safeParse(params.personaje);
   const filters: Filters = {
     tema: tema.success ? tema.data : null,
     obra: obra.success ? obra.data : null,
+    personaje: personaje.success ? personaje.data : null,
   };
 
   const quotes = await getAllQuotes();
@@ -97,16 +100,19 @@ export default async function ExplorePage({ searchParams }: PageProps<"/explorar
 
   const tags = new Map<string, Option>();
   const works = new Map<string, Option>();
+  const characters = new Map<string, Option>();
   for (const q of quotes) {
     for (const t of q.tags) count(tags, t.slug, t.nameEs);
     count(works, workSlug(q.work.title), franchiseOf(q.work.title));
+    count(characters, slugify(q.character), q.character);
   }
   const byCount = (a: Option, b: Option) => b.count - a.count || a.label.localeCompare(b.label);
 
   const visible = quotes.filter(
     (q) =>
       (!filters.tema || q.tags.some((t) => t.slug === filters.tema)) &&
-      (!filters.obra || workSlug(q.work.title) === filters.obra),
+      (!filters.obra || workSlug(q.work.title) === filters.obra) &&
+      (!filters.personaje || slugify(q.character) === filters.personaje),
   );
 
   return (
@@ -131,6 +137,13 @@ export default async function ExplorePage({ searchParams }: PageProps<"/explorar
           options={[...works.values()].sort(byCount)}
           active={filters.obra}
           hrefFor={(slug) => exploreHref({ ...filters, obra: slug })}
+        />
+        <FilterRow
+          label="Personajes"
+          allLabel="Todos"
+          options={[...characters.values()].sort(byCount)}
+          active={filters.personaje}
+          hrefFor={(slug) => exploreHref({ ...filters, personaje: slug })}
         />
       </div>
 

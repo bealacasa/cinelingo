@@ -7,6 +7,7 @@ import { batch5 } from "./batch-5.ts";
 import { batch6 } from "./batch-6.ts";
 import { batch7 } from "./batch-7.ts";
 import { batch8 } from "./batch-8.ts";
+import { batch9 } from "./batch-9.ts";
 import { rewrites1 } from "./rewrites-1.ts";
 import { rewrites2 } from "./rewrites-2.ts";
 
@@ -22,6 +23,7 @@ export const seedQuotes = [
   ...batch6,
   ...batch7,
   ...batch8,
+  ...batch9,
 ].map((q) => ({ ...q, rewrite: rewrites[q.slug] }));
 
 /** Slugs con reformulación (el test comprueba que todos existen). */
@@ -37,6 +39,7 @@ export const seedTags: Record<string, string> = {
   jerga: "Jerga y slang",
   lenguaje: "Sobre el lenguaje",
   matices: "Matices y cortesía",
+  medios: "Medios y televisión",
   motivacion: "Motivación",
   negociacion: "Negociación",
   pronunciacion: "Pronunciación",

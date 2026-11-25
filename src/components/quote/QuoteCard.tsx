@@ -1,7 +1,7 @@
-import { ClapperIcon } from "@/components/icons";
 import { segmentText } from "@/lib/quotes/highlight";
 import { VARIETY_SHORT, sourceLabel } from "@/lib/quotes/labels";
 import type { QuoteView } from "@/lib/quotes/schema";
+import { CharacterAvatar } from "./CharacterAvatar";
 
 /**
  * Cita en una "pantalla de cine" (siempre oscura). Las expresiones resaltadas
@@ -61,12 +61,7 @@ export function QuoteCard({
       </blockquote>
 
       <figcaption className="mt-7 flex items-center gap-3 border-t border-white/10 pt-5 sm:mt-9">
-        <span
-          aria-hidden="true"
-          className="grid size-10 shrink-0 place-items-center rounded-full bg-white/10 text-screen-accent"
-        >
-          <ClapperIcon />
-        </span>
+        <CharacterAvatar name={quote.character} />
         <span className="min-w-0">
           <span className="block font-semibold">{quote.character}</span>
           <cite className="block truncate text-sm not-italic text-screen-muted">
