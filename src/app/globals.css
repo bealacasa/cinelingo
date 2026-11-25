@@ -121,6 +121,31 @@ summary::-webkit-details-marker {
   display: none;
 }
 
+.avatar-gradient-violet {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+}
+.avatar-gradient-blue {
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+}
+.avatar-gradient-emerald {
+  background: linear-gradient(135deg, #059669, #34d399);
+}
+.avatar-gradient-amber {
+  background: linear-gradient(135deg, #d97706, #fbbf24);
+}
+.avatar-gradient-red {
+  background: linear-gradient(135deg, #dc2626, #f87171);
+}
+.avatar-gradient-cyan {
+  background: linear-gradient(135deg, #0891b2, #22d3ee);
+}
+.avatar-gradient-fuchsia {
+  background: linear-gradient(135deg, #c026d3, #e879f9);
+}
+.avatar-gradient-indigo {
+  background: linear-gradient(135deg, #4f46e5, #818cf8);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
