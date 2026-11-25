@@ -9,7 +9,8 @@ export const batch9: SeedQuote[] = [
     character: "Cory Ellison",
     sceneContextEs:
       "Cory aconseja cautela ante una decisión arriesgada: actuar desde la desesperación es partir con desventaja.",
-    translationEs: "La desesperación no es una buena posición desde la que hacer un gran movimiento.",
+    translationEs:
+      "La desesperación no es una buena posición desde la que hacer un gran movimiento.",
     culturalNoteEs:
       "Frase habitual en entornos corporativos estadounidenses: las decisiones impulsivas por miedo rara vez salen bien.",
     variety: "us",
@@ -31,8 +32,7 @@ export const batch9: SeedQuote[] = [
     text: "Business is business. Those things don't change.",
     work: { title: "The Morning Show", type: "series", year: 2019 },
     character: "Cory Ellison",
-    sceneContextEs:
-      "Cory justifica una decisión dura separando lo profesional de lo personal.",
+    sceneContextEs: "Cory justifica una decisión dura separando lo profesional de lo personal.",
     translationEs: "Los negocios son los negocios. Esas cosas no cambian.",
     culturalNoteEs:
       "Expresión que se usa para zanjar una discusión emocional en el trabajo: las reglas del juego no se negocian.",
@@ -45,7 +45,8 @@ export const batch9: SeedQuote[] = [
         type: "idiom",
         register: "neutral",
         meaningEn: "Personal feelings should not interfere with professional decisions.",
-        meaningEs: "Los sentimientos personales no deben interferir en las decisiones profesionales.",
+        meaningEs:
+          "Los sentimientos personales no deben interferir en las decisiones profesionales.",
         noteEs: "Estructura 'X is X' para cerrar debate: 'Rules are rules', 'A deal is a deal'.",
       },
     ],
@@ -102,7 +103,8 @@ export const batch9: SeedQuote[] = [
         register: "informal",
         meaningEn: "X has replaced Y as the dominant trend or obsession.",
         meaningEs: "X ha sustituido a Y como la tendencia o la obsesión dominante.",
-        noteEs: "Fórmula muy usada en periodismo y conversación informal para describir modas o adicciones sociales.",
+        noteEs:
+          "Fórmula muy usada en periodismo y conversación informal para describir modas o adicciones sociales.",
       },
     ],
   },
@@ -160,7 +162,8 @@ export const batch9: SeedQuote[] = [
         register: "neutral",
         meaningEn: "The thing that one desires or requires to be told.",
         meaningEs: "Lo que uno quiere o necesita que le digan.",
-        noteEs: "Contraste 'want to hear' vs 'need to hear': muy frecuente en discursos motivacionales y periodísticos.",
+        noteEs:
+          "Contraste 'want to hear' vs 'need to hear': muy frecuente en discursos motivacionales y periodísticos.",
       },
     ],
   },
